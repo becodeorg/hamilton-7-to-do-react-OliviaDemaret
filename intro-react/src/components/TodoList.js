@@ -1,4 +1,14 @@
-const TodoList = ({todos}) => {
+const TodoList = ({todos, setTodos}) => {
+    const handleChange = (id) => {
+        const newTodo = todos.map((todo) => {
+          if (todo.id === id) {
+            todo.done = !todo.done;
+          }
+          return todo;
+        });
+    
+        setTodos(newTodo);
+      };
     return(
         <div>
         <h2 className="m-5">Todos</h2>
@@ -8,9 +18,13 @@ const TodoList = ({todos}) => {
                         <input
                             className="mx-2.5"
                             type="checkbox"
+                            id={todo.id}
                             name={todo.title}
                             value={todo.title}
                             checked={todo.done}
+                            onChange={() => {
+                                handleChange(todo.id);
+                              }}
                         ></input>
                         <label className="mx-2.5" htmlFor={todo.title}>
                             {todo.title}
